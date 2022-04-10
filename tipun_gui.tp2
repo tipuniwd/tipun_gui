@@ -1,0 +1,71 @@
+BACKUP ~tipun_gui/backup~
+
+AUTHOR ~tipun, https://arcanecoast.ru/forum/index.php~
+
+VERSION ~v1.0~
+
+LANGUAGE ~Russian~ ~ru_RU~ ~tipun_gui/lang/ru_RU/strings.tra~
+
+BEGIN ~Tipun's User Interface (main component)~
+REQUIRE_PREDICATE GAME_IS ~bg2ee eet~ OR (GAME_IS ~bgee~ AND GAME_INCLUDES ~sod~) ~Not compatible game.~
+DESIGNATED 10
+
+INCLUDE ~%MOD_FOLDER%/lib/functions.tph~
+
+INCLUDE ~%MOD_FOLDER%/lib/add_lua_strings.tph~
+
+INCLUDE ~%MOD_FOLDER%/lib/set_variables.tph~
+
+INCLUDE ~%MOD_FOLDER%/lib/patchUtilLua.tph~
+
+COPY ~%MOD_FOLDER%/lua/M_utf8.lua~   ~override~
+COPY ~%MOD_FOLDER%/lua/utf8data.lua~ ~override~
+COPY ~%MOD_FOLDER%/lua/m_zZFunc.lua~ ~override~ EVALUATE_BUFFER
+COPY ~%MOD_FOLDER%/lua/m_zZinvt.lua~ ~override~ EVALUATE_BUFFER
+COPY ~%MOD_FOLDER%/lua/M_zZitmA.lua~ ~override~ EVALUATE_BUFFER
+COPY ~%MOD_FOLDER%/lua/m_zZtabl.lua~ ~override/m_zZatbl.lua~ EVALUATE_BUFFER
+COPY ~%MOD_FOLDER%/lua/m_zZrand.lua~ ~override~
+COPY ~%MOD_FOLDER%/lua/m_zZport.lua~ ~override~ EVALUATE_BUFFER
+COPY ~%MOD_FOLDER%/lua/ui.menu~ ~override~ EVALUATE_BUFFER
+
+
+COPY ~override/m_zZatbl.lua~ ~%MOD_FOLDER%~
+
+INCLUDE ~%MOD_FOLDER%/lib/create_strings.tph~
+INCLUDE ~%MOD_FOLDER%/lib/achievem.tph~
+COPY ~%MOD_FOLDER%/lua/M_zZachv.lua~ ~override~ EVALUATE_BUFFER
+COPY ~%MOD_FOLDER%/lua/M_zZachT.lua~ ~override~ EVALUATE_BUFFER
+
+
+INCLUDE ~%MOD_FOLDER%/lib/chapter_screen.tph~
+
+COPY ~%MOD_FOLDER%/bam~ ~override~
+COPY ~%MOD_FOLDER%/bmp~ ~override~
+COPY ~%MOD_FOLDER%/mos~ ~override~
+COPY ~%MOD_FOLDER%/png~ ~override~
+COPY ~%MOD_FOLDER%/wbm~ ~override~
+ACTION_IF GAME_IS ~bg2ee eet~ BEGIN
+	COPY ~%MOD_FOLDER%/pvrz/bg2~ ~override~
+END ELSE BEGIN
+	COPY ~%MOD_FOLDER%/pvrz/bg1~ ~override~
+END
+
+
+INCLUDE ~%MOD_FOLDER%/lib/create_tables.tph~
+
+
+BEGIN ~Tipun's User Interface (create data tables)~
+REQUIRE_PREDICATE FILE_EXISTS_IN_GAME ~m_zZFunc.lua~ ~Main component not installed.~
+DESIGNATED 20
+
+COPY ~%MOD_FOLDER%/m_zZatbl.lua~ ~override~
+INCLUDE ~%MOD_FOLDER%/lib/create_tables.tph~
+
+
+
+
+
+
+
+
+
