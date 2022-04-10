@@ -1,0 +1,217 @@
+OUTER_SPRINT ~tilde~ "~"
+
+ACTION_IF GAME_IS ~bg2ee eet~ BEGIN
+	OUTER_SPRINT ~strstory_mode~ ~DIFFICULTY_DESCRIPTION_STORYMODE_BG2EE~
+	OUTER_SPRINT ~str31872~ ~31872~
+	OUTER_SPRINT ~str58171~ ~58171~
+	OUTER_SPRINT ~str10571~ ~10571~
+	OUTER_SPRINT ~str93703~ ~93703~
+	OUTER_SPRINT ~str93704~ ~93704~
+	OUTER_SPRINT ~str103188~ ~103188~
+	OUTER_SPRINT ~str103189~ ~103189~
+	OUTER_SPRINT ~str103190~ ~103190~
+	OUTER_SPRINT ~str103191~ ~103191~
+	OUTER_SPRINT ~str103205~ ~103205~
+	OUTER_SPRINT ~str103192~ ~103192~
+	OUTER_SPRINT ~str103148~ ~103148~
+	OUTER_SPRINT ~str102621~ ~102621~
+	OUTER_SPRINT ~str102624~ ~102624~
+	OUTER_SPRINT ~str102626~ ~102626~
+	OUTER_SPRINT ~str16313~ ~16313~
+	OUTER_SPRINT ~str16308~ ~16308~
+	OUTER_SPRINT ~str16307~ ~16307~
+	OUTER_SPRINT ~str16306~ ~16306~
+	OUTER_SPRINT ~str16309~ ~16309~
+	OUTER_SPRINT ~str14930~ ~14930~
+	OUTER_SPRINT ~str16311~ ~16311~
+	OUTER_SPRINT ~str16312~ ~16312~
+	OUTER_SPRINT ~str74261~ ~74261~
+	OUTER_SPRINT ~str74270~ ~74270~
+	OUTER_SPRINT ~str103144~ ~103144~
+	OUTER_SPRINT ~str99897~ ~99897~
+	OUTER_SPRINT ~strs69563~ ~'FC_BLACK_PIT_TEXT'~
+	OUTER_SPRINT ~str63745~ ~63745~
+	OUTER_SPRINT ~str32665~ ~32665~
+	OUTER_SPRINT ~str103241~ ~103241~
+	OUTER_SPRINT ~str17236~ ~17236~
+	OUTER_SPRINT ~str9588~ ~9588~
+	OUTER_SPRINT ~str2862~ ~2862~
+	OUTER_SPRINT ~str597~ ~597~
+	OUTER_SPRINT ~str2179~ ~2179~
+	OUTER_SPRINT ~str2846~ ~2846~
+	OUTER_SPRINT ~str2861~ ~2861~
+	OUTER_SPRINT ~str3015~ ~3015~
+	OUTER_SPRINT ~str12744~ ~12744~
+	OUTER_SPRINT ~str12745~ ~12745~
+	OUTER_SPRINT ~str54893~ ~54893~
+	OUTER_SPRINT ~strs10962~ ~Infinity_FetchString(10962)~
+	OUTER_SPRINT ~str63817~ ~63817~
+	OUTER_SPRINT ~strMAIN_GAME_BG2_LABEL~ ~MAIN_GAME_BG2_LABEL~
+	OUTER_SPRINT ~strARENA_MODE_BG2_LABEL~ ~ARENA_MODE_BG2_LABEL~
+	OUTER_SPRINT ~strEXPANSION_BG2_LABEL~ ~EXPANSION_BG2_LABEL~
+	OUTER_SPRINT ~str103043~ ~103043~
+	OUTER_SPRINT ~strMAIN_GAME_LABEL~ ~t('MAIN_GAME_LABEL') .. ' 2'~
+	OUTER_SPRINT ~strEXPANSION_BG2_LABELex~ ~EXPANSION_BG2_LABEL~
+	OUTER_SPRINT ~str57435~ ~57435~
+	OUTER_SPRINT ~strcheatAreaDisplayList~ ~if game:GetMissionPackInfo() then%LNL%%TAB%%TAB%%TAB%cheatAreaDisplayList = cheatAreasTutorial%LNL%%TAB%%TAB%elseif game:GetMissionPackInfoTBP() then%LNL%%TAB%%TAB%%TAB%cheatAreaDisplayList = cheatAreasArena%LNL%%TAB%%TAB%elseif game:GetMissionPackInfo25() then%LNL%%TAB%%TAB%%TAB%cheatAreaDisplayList = cheatAreasExpansion~
+	OUTER_SPRINT ~strINSTALLATION_WARNING~ ~ ~
+	OUTER_SPRINT ~strINSTALLATION_WARNINGCheck~ ~ ~
+	OUTER_SPRINT ~strSTART_MONE~ ~label%LNL%%TAB%%TAB%%TAB%{%LNL%%TAB%%TAB%%TAB%%TAB%enabled "rowNumber == const.START_CAMPAIGN_SOA"%LNL%%TAB%%TAB%%TAB%%TAB%area 22 2 37 46%LNL%%TAB%%TAB%%TAB%%TAB%bam lua "startCampaignData[rowNumber].icon"%LNL%%TAB%%TAB%%TAB%%TAB%frame lua "zZgetCampaignSeq(rowNumber, currHighlightCamp)"%LNL%%TAB%%TAB%%TAB%%TAB%scaleToClip%LNL%%TAB%%TAB%%TAB%}%LNL%%TAB%%TAB%%TAB%label%LNL%%TAB%%TAB%%TAB%{%LNL%%TAB%%TAB%%TAB%%TAB%enabled "rowNumber == const.START_CAMPAIGN_TOB"%LNL%%TAB%%TAB%%TAB%%TAB%area 16 2 48 46%LNL%%TAB%%TAB%%TAB%%TAB% bam lua "startCampaignData[rowNumber].icon"%LNL%%TAB%%TAB%%TAB%%TAB%frame lua "zZgetCampaignSeq(rowNumber, currHighlightCamp)"%LNL%%TAB%%TAB%%TAB%%TAB%scaleToClip%LNL%%TAB%%TAB%%TAB%}%LNL%%TAB%%TAB%%TAB%label%LNL%%TAB%%TAB%%TAB%{%LNL%%TAB%%TAB%%TAB%%TAB%enabled "rowNumber == const.START_CAMPAIGN_BP2"%LNL%%TAB%%TAB%%TAB%%TAB%area 15 2 50 46%LNL%%TAB%%TAB%%TAB%%TAB%bam lua "startCampaignData[rowNumber].icon"%LNL%%TAB%%TAB%%TAB%%TAB%frame lua "zZgetCampaignSeq(rowNumber, currHighlightCamp)"%LNL%%TAB%%TAB%%TAB%%TAB%scaleToClip%LNL%%TAB%%TAB%%TAB%}~
+	OUTER_SPRINT ~strSTART_MTWO~ ~ ~
+	OUTER_SPRINT ~strBigLogoSize~ ~346 449~
+	OUTER_SPRINT ~strBigLogoPos~ ~zzBigLogo = 'BIGLOGO'%LNL%%TAB%%TAB%zzBigLogoFrame = startCampaignData[selectedCampaign].bigLogo%LNL%%TAB%%TAB%Infinity_SetArea('zZstartBigLogo', (screenWidth - 440)/2 - (346/2) + 15, 210, nil, 449)%LNL%%TAB%%TAB%Infinity_SetArea('zZstartBigLogoOpt', (screenWidth - 440)/2 - (346/2) + 15, 210, nil, 449)%LNL%%TAB%%TAB%bttop, btheight = 120, 55%LNL%%TAB%else%LNL%%TAB%%TAB%zzBigLogoFrame = 0%LNL%%TAB%%TAB%if selectedCampaign == const.START_CAMPAIGN_SOA then%LNL%%TAB%%TAB%%TAB%zzBigLogo = 'LOGOSOA'%LNL%%TAB%%TAB%elseif selectedCampaign == const.START_CAMPAIGN_TOB then%LNL%%TAB%%TAB%%TAB%zzBigLogo = 'LOGOTOB'%LNL%%TAB%%TAB%elseif selectedCampaign == const.START_CAMPAIGN_BP2 then%LNL%%TAB%%TAB%%TAB%zzBigLogo = 'LOGOTBP'%LNL%%TAB%%TAB%end%LNL%%TAB%%TAB%Infinity_SetArea('zZstartBigLogo', (screenWidth - 440)/2 - (346/2) + 15, 200, nil, 260)%LNL%%TAB%%TAB%Infinity_SetArea('zZstartBigLogoOpt', (screenWidth - 440)/2 - (346/2) + 15, 200, nil, 260)%LNL%%TAB%%TAB%bttop, btheight = 80, 50~
+	OUTER_SPRINT ~strSelCurCamp~ ~if cmp == nil then cmp = const.START_CAMPAIGN_SOA end%LNL%%TAB%if cmp == const.START_CAMPAIGN_SOA then%LNL%%TAB%%TAB%startEngine:OnSoAButtonClick(true)%LNL%%TAB%elseif cmp == const.START_CAMPAIGN_TOB then%LNL%%TAB%%TAB%startEngine:OnToBButtonClick(true)%LNL%%TAB%elseif cmp == const.START_CAMPAIGN_BP2 then%LNL%%TAB%%TAB%startEngine:OnTBPButtonClick(true)%LNL%%TAB%end%LNL%%TAB%selectedCampaign = cmp%LNL%%TAB%selectedCampaign = Infinity_SetINIValue('Program Options','Active Campaign',selectedCampaign)~
+	OUTER_SPRINT ~strStartTitle~ ~Infinity_SetArea('zZstartTitle', (screenWidth - 440)/2 - (605/2) + 15, 100, nil, nil)~
+	OUTER_SPRINT ~strStartTitleOpt~ ~Infinity_SetArea('zZstartTitleOpt', (screenWidth - 440)/2 - (605/2) + 15, 100, nil, nil)~
+	OUTER_SPRINT ~strEscMenu~ ~ ~
+	OUTER_SPRINT ~strEscMenuTitle~ ~area 86 70 334 59~
+	OUTER_SPRINT ~strEscMenuTitleArea~ ~ ~
+	OUTER_SPRINT ~strmatchMultiplayer~ ~if gameVersion == "bg2ee-main" then%LNL%%TAB%%TAB%startEngine:OnSoAButtonClick(false)%LNL%%TAB%%TAB%e:CheckGUISong()%LNL%%TAB%elseif gameVersion == "bg2ee-bp" then%LNL%%TAB%%TAB%startEngine:OnTBPButtonClick(false)%LNL%%TAB%%TAB%e:CheckGUISong()%LNL%%TAB%elseif gameVersion == "bg2ee-tob" then%LNL%%TAB%%TAB%startEngine:OnToBButtonClick(false)%LNL%%TAB%%TAB%e:CheckGUISong()%LNL%%TAB%end~
+	OUTER_SPRINT ~strBigLogoSeq~ ~0~
+	OUTER_SPRINT ~strcheatArea~ ~605 44 279 94~
+	OUTER_SPRINT ~strcheatBam~ ~title~
+	OUTER_SPRINT ~strcheatSeq~ ~1~
+	OUTER_SPRINT ~strreplaceQuestId~ ~local quest = findQuest(questId)~
+	OUTER_SPRINT ~str74295~ ~74295~
+	OUTER_SPRINT ~strcampConstTbl~ ~START_CAMPAIGN_SOA = 1,%LNL%%TAB%START_CAMPAIGN_TOB = 2,%LNL%%TAB%START_CAMPAIGN_BP2 = 3,~
+	OUTER_SPRINT ~strcampDataTbl~ ~{id = 'SOA', name = 'EET_CMP_TITLE_SOA', description = 'EET_CMP_TEXT_SOA', title = 0, bigLogo = 0, icon = 'LOGOSOA', background = 2, button = 2, sidebar = 2, importEnabled = false, tutorialEnabled = true, forceParty = false, cheatAreasTable = cheatAreas},%LNL%%TAB%{id = 'TOB', name = 'EET_CMP_TITLE_TOB', description = 'EET_CMP_TEXT_TOB', title = 1, bigLogo = 1, icon = 'LOGOTOB', background = 2, button = 2, sidebar = 2, importEnabled = true, tutorialEnabled = false, forceParty = false, cheatAreasTable = cheatAreas},%LNL%%TAB%{id = 'BP2', name = 'EET_CMP_TITLE_BP2', description = 'EET_CMP_TEXT_BP2', title = 2, bigLogo = 2, icon = 'LOGOTBP', background = 2, button = 2, sidebar = 2, importEnabled = false, tutorialEnabled = false, forceParty = true, cheatAreasTable = cheatAreasArena},~
+	OUTER_SPRINT ~strcreateBioText~ ~ ~
+	OUTER_SPRINT ~strchapterArena~ ~chpt < 1~
+	OUTER_SPRINT ~strchapterText~ ~%LNL%%TAB%%TAB%return Infinity_FetchString(chapterStrrefs[chpt])~
+	OUTER_SPRINT ~strcreditsStart~ ~Infinity_PushMenu('CREDITS')~
+	/* new strings */
+	OUTER_SPRINT ~strBGEEscaleToClip~ ~align center center~
+	OUTER_SPRINT ~strChapterZero~ ~1~
+	OUTER_SPRINT ~strChargenDiffPop~ ~~
+	OUTER_SPRINT ~strSliderBackground~ ~mosaic 'GUISLDR'~
+END
+
+ACTION_IF GAME_IS ~bgee~ BEGIN
+	OUTER_SPRINT ~strstory_mode~ ~DIFFICULTY_DESCRIPTION_STORYMODE~
+	OUTER_SPRINT ~str31872~ ~24432~
+	OUTER_SPRINT ~str58171~ ~24433~
+	OUTER_SPRINT ~str10571~ ~24434~
+	OUTER_SPRINT ~str93703~ ~32205~
+	OUTER_SPRINT ~str93704~ ~32206~
+	OUTER_SPRINT ~str103188~ ~66654~
+	OUTER_SPRINT ~str103189~ ~65909~
+	OUTER_SPRINT ~str103190~ ~32709~
+	OUTER_SPRINT ~str103191~ ~32710~
+	OUTER_SPRINT ~str103205~ ~66657~
+	OUTER_SPRINT ~str103192~ ~69567~
+	OUTER_SPRINT ~str103148~ ~32725~
+	OUTER_SPRINT ~str102621~ ~24680~
+	OUTER_SPRINT ~str102624~ ~32129~
+	OUTER_SPRINT ~str102626~ ~71374~
+	OUTER_SPRINT ~str16313~ ~24364~
+	OUTER_SPRINT ~str16308~ ~24359~
+	OUTER_SPRINT ~str16307~ ~24358~
+	OUTER_SPRINT ~str16306~ ~24356~
+	OUTER_SPRINT ~str16309~ ~24360~
+	OUTER_SPRINT ~str14930~ ~24357~
+	OUTER_SPRINT ~str16311~ ~24362~
+	OUTER_SPRINT ~str16312~ ~24363~
+	OUTER_SPRINT ~str74261~ ~31813~
+	OUTER_SPRINT ~str74270~ ~31827~
+	OUTER_SPRINT ~str103144~ ~32729~
+	OUTER_SPRINT ~str99897~ ~32217~
+	OUTER_SPRINT ~strs69563~ ~lua "Infinity_FetchString(69563)"~
+	OUTER_SPRINT ~str63745~ ~24485~
+	OUTER_SPRINT ~str32665~ ~24398~
+	OUTER_SPRINT ~str103241~ ~32898~
+	OUTER_SPRINT ~str17236~ ~24313~
+	OUTER_SPRINT ~str9588~ ~24315~
+	OUTER_SPRINT ~str2862~ ~25323~
+	OUTER_SPRINT ~str597~ ~25319~
+	OUTER_SPRINT ~str2179~ ~25320~
+	OUTER_SPRINT ~str2846~ ~25321~
+	OUTER_SPRINT ~str2861~ ~25322~
+	OUTER_SPRINT ~str3015~ ~25324~
+	OUTER_SPRINT ~str12744~ ~25325~
+	OUTER_SPRINT ~str12745~ ~25326~
+	OUTER_SPRINT ~str54893~ ~25327~
+	OUTER_SPRINT ~strs10962~ ~Infinity_FetchString(24461)~
+	OUTER_SPRINT ~str63817~ ~'FC_HLA_DESC'~
+	OUTER_SPRINT ~strMAIN_GAME_BG2_LABEL~ ~MAIN_GAME_LABEL~
+	OUTER_SPRINT ~strARENA_MODE_BG2_LABEL~ ~ARENA_MODE_LABEL~
+	OUTER_SPRINT ~strEXPANSION_BG2_LABEL~ ~EXPANSION_LABEL~
+	OUTER_SPRINT ~str103043~ ~'STRREF_GUI_LOWER_DLC_STORE'~
+	OUTER_SPRINT ~strMAIN_GAME_LABEL~ ~t('MAIN_GAME_LABEL')~
+	OUTER_SPRINT ~strEXPANSION_BG2_LABELex~ ~EXPANSION_LABEL~
+	OUTER_SPRINT ~str57435~ ~24372~
+	OUTER_SPRINT ~strcheatAreaDisplayList~ ~if game:GetMissionPackInfo() then%LNL%%TAB%%TAB%%TAB%cheatAreaDisplayList = cheatAreasTutorial%LNL%%TAB%%TAB%elseif game:GetMissionPackInfoTBP() then%LNL%%TAB%%TAB%%TAB%cheatAreaDisplayList = cheatAreasArena%LNL%%TAB%%TAB%elseif startEngine:GetCampaign() == 3 then%LNL%%TAB%%TAB%%TAB%cheatAreaDisplayList = cheatAreasExpansion~
+	OUTER_SPRINT ~strINSTALLATION_WARNING~ ~ ~
+	OUTER_SPRINT ~strINSTALLATION_WARNINGCheck~ ~if e:IsTouchUI() and startEngine:GetCampaign() %tilde%= 3 then%LNL%%TAB%%TAB%%TAB%startEngine:OnCampaignButtonClick('SOD',false)%LNL%%TAB%%TAB%end~
+	OUTER_SPRINT ~strSTART_MONE~ ~label%LNL%%TAB%%TAB%%TAB%{%LNL%%TAB%%TAB%%TAB%%TAB%enabled "rowNumber %tilde%= selTblCampaign and rowNumber == mouseoverRow"%LNL%%TAB%%TAB%%TAB%%TAB%area 0 0 -1 -1%LNL%%TAB%%TAB%%TAB%%TAB%fill 112 111 111 40%LNL%%TAB%%TAB%%TAB%}%LNL%%TAB%%TAB%%TAB%label%LNL%%TAB%%TAB%%TAB%{%LNL%%TAB%%TAB%%TAB%%TAB%enabled "rowNumber == selTblCampaign"%LNL%%TAB%%TAB%%TAB%%TAB%area 0 0 -1 -1%LNL%%TAB%%TAB%%TAB%%TAB%fill 112 111 111 65%LNL%%TAB%%TAB%%TAB%}%LNL%%TAB%%TAB%%TAB%label%LNL%%TAB%%TAB%%TAB%{%LNL%%TAB%%TAB%%TAB%%TAB%area 25 9 32 32%LNL%%TAB%%TAB%%TAB%%TAB%bam lua "startCampaignData[rowNumber].icon"%LNL%%TAB%%TAB%%TAB%%TAB%sequence 0%LNL%%TAB%%TAB%%TAB%%TAB%frame lua "startCampaignData[rowNumber].bigLogo"%LNL%%TAB%%TAB%%TAB%%TAB%scaleToClip%LNL%%TAB%%TAB%%TAB%}~
+	OUTER_SPRINT ~strSTART_MTWO~ ~label%LNL%%TAB%%TAB%%TAB%{%LNL%%TAB%%TAB%%TAB%%TAB%enabled "rowNumber %tilde%= selTblCampaign and rowNumber == mouseoverRow"%LNL%%TAB%%TAB%%TAB%%TAB%area 0 0 -1 -1%LNL%%TAB%%TAB%%TAB%%TAB%fill 112 111 111 40%LNL%%TAB%%TAB%%TAB%}%LNL%%TAB%%TAB%%TAB%label%LNL%%TAB%%TAB%%TAB%{%LNL%%TAB%%TAB%%TAB%%TAB%enabled "rowNumber == selTblCampaign"%LNL%%TAB%%TAB%%TAB%%TAB%area 0 0 -1 -1%LNL%%TAB%%TAB%%TAB%%TAB%fill 112 111 111 65%LNL%%TAB%%TAB%%TAB%}~
+	OUTER_SPRINT ~strBigLogoSize~ ~460 460%LNL%%TAB%%TAB%scaleToClip~
+	OUTER_SPRINT ~strBigLogoPos~ ~zzBigLogo = 'BIGLOGO'%LNL%%TAB%%TAB%zzBigLogoFrame = startCampaignData[selectedCampaign].bigLogo%LNL%%TAB%%TAB%Infinity_SetArea('zZstartBigLogo', (screenWidth - 440)/2 - (460/2) + 15, 218, 460, 460)%LNL%%TAB%%TAB%Infinity_SetArea('zZstartBigLogoOpt', (screenWidth - 440)/2 - (460/2) + 15, 218, 460, 460)%LNL%%TAB%%TAB%bttop, btheight = 120, 55%LNL%%TAB%else%LNL%%TAB%%TAB%zzBigLogoFrame = startCampaignData[selectedCampaign].bigLogo%LNL%%TAB%%TAB%zzBigLogo = 'BIGLOGO'%LNL%%TAB%%TAB%Infinity_SetArea('zZstartBigLogo', (screenWidth - 440)/2 - (260/2) + 15, 200, 260, 260)%LNL%%TAB%%TAB%Infinity_SetArea('zZstartBigLogoOpt', (screenWidth - 440)/2 - (260/2) + 15, 200, 260, 260)%LNL%%TAB%%TAB%bttop, btheight = 80, 50~
+	OUTER_SPRINT ~strSelCurCamp~ ~if cmp == nil then cmp = const.START_CAMPAIGN_BG1 end%LNL%%TAB%if cmp == const.START_CAMPAIGN_BG1 then%LNL%%TAB%%TAB%startEngine:OnSoAButtonClick(true)%LNL%%TAB%elseif cmp == const.START_CAMPAIGN_SOD then%LNL%%TAB%%TAB%startEngine:OnCampaignButtonClick('SOD',true)%LNL%%TAB%elseif cmp == const.START_CAMPAIGN_BP1 then%LNL%%TAB%%TAB%startEngine:OnTBPButtonClick(true)%LNL%%TAB%end%LNL%%TAB%selectedCampaign = cmp%LNL%%TAB%selectedCampaign = Infinity_SetINIValue('Program Options','Active Campaign',selectedCampaign)~
+	OUTER_SPRINT ~strStartTitle~ ~local ccamp = 1%LNL%%TAB%if selectedCampaign %tilde%= nil then ccamp = startCampaignData[selectedCampaign].title end%LNL%%TAB%if ccamp == 1 then Infinity_SetArea('zZstartTitle', (screenWidth - 440)/2 - (510/2) + 15, 10, 510, 214)%LNL%%TAB%elseif ccamp == 2 then Infinity_SetArea('zZstartTitle', (screenWidth - 440)/2 - (494/2) + 15, 93, 494, 171)%LNL%%TAB%else Infinity_SetArea('zZstartTitle', (screenWidth - 440)/2 - (504/2) + 15, 68, 504, 162) end~
+	OUTER_SPRINT ~strStartTitleOpt~ ~local ccamp = 1%LNL%%TAB%if selectedCampaign %tilde%= nil then ccamp = startCampaignData[selectedCampaign].title end%LNL%%TAB%if ccamp == 1 then Infinity_SetArea('zZstartTitleOpt', (screenWidth - 440)/2 - (510/2) + 15, 10, 510, 214)%LNL%%TAB%elseif ccamp == 2 then Infinity_SetArea('zZstartTitleOpt', (screenWidth - 440)/2 - (494/2) + 15, 33, 494, 171)%LNL%%TAB%else Infinity_SetArea('zZstartTitleOpt', (screenWidth - 440)/2 - (504/2) + 15, 68, 504, 162) end~
+	OUTER_SPRINT ~strEscMenu~ ~ ~
+	OUTER_SPRINT ~strEscMenuTitle~ ~name 'zZoptionsTitle'%LNL%%TAB%%TAB%area 86 70 334 59~
+	OUTER_SPRINT ~strEscMenuTitleArea~ ~function zZsetOptTitleArea()%LNL%%TAB%local ccamp = 1%LNL%%TAB%local x, y, w, h = 86, 70, 334, 59%LNL%%TAB%if selectedCampaign %tilde%= nil then ccamp = startCampaignData[selectedCampaign].title end%LNL%%TAB%if ccamp == 3 then x = 85; y = 79; w =  334; h = 41%LNL%%TAB%elseif ccamp == 2 then x = 177; w = 150%LNL%%TAB%else x = 137; w = 231 end%LNL%%TAB%Infinity_SetArea('zZoptionsTitle', x, y, w, h)%LNL%end~ //currentCampaign
+	OUTER_SPRINT ~strmatchMultiplayer~ ~if gameVersion == "bgee-main" then%LNL%%TAB%%TAB%startEngine:OnSoAButtonClick(false)%LNL%%TAB%%TAB%e:CheckGUISong()%LNL%%TAB%elseif gameVersion == "bgee-bp" then%LNL%%TAB%%TAB%startEngine:OnTBPButtonClick(false)%LNL%%TAB%%TAB%e:CheckGUISong()%LNL%%TAB%elseif gameVersion == "bgee-sod" then%LNL%%TAB%%TAB%startEngine:OnCampaignButtonClick('SOD',false)%LNL%%TAB%%TAB%e:CheckGUISong()%LNL%%TAB%end~
+	OUTER_SPRINT ~strBigLogoSeq~ ~1~
+	OUTER_SPRINT ~strcheatArea~ ~605 63 279 56~
+	OUTER_SPRINT ~strcheatBam~ ~title~
+	OUTER_SPRINT ~strcheatSeq~ ~0~
+	OUTER_SPRINT ~strreplaceQuestId~ ~local quest = findQuest(questId)~
+	OUTER_SPRINT ~str74295~ ~31270~
+	OUTER_SPRINT ~strcampConstTbl~ ~START_CAMPAIGN_BG1 = 1,%LNL%%TAB%START_CAMPAIGN_SOD = 2,%LNL%%TAB%START_CAMPAIGN_BP1 = 3,~
+	OUTER_SPRINT ~strcampDataTbl~ ~{id = 'BG1', name = 'EET_CMP_TITLE_BG1', description = 'EET_CMP_TEXT_BG1', title = 0, bigLogo = 0, icon = 'BIGLOGO', background = 2, button = 2, sidebar = 2, importEnabled = false, tutorialEnabled = true, forceParty = false, cheatAreasTable = cheatAreas},%LNL%%TAB%{id = 'SOD', name = 'EET_CMP_TITLE_SOD', description = 'EET_CMP_TEXT_SOD', title = 1, bigLogo = 1, icon = 'BIGLOGO', background = 2, button = 2, sidebar = 2, importEnabled = true, tutorialEnabled = false, forceParty = false, cheatAreasTable = cheatAreas},%LNL%%TAB%{id = 'BP1', name = 'EET_CMP_TITLE_BP1', description = 'EET_CMP_TEXT_BP1', title = 2, bigLogo = 2, icon = 'BIGLOGO', background = 2, button = 2, sidebar = 2, importEnabled = false, tutorialEnabled = false, forceParty = true, cheatAreasTable = cheatAreasArena},~
+	OUTER_SPRINT ~strcreateBioText~ ~ ~
+	OUTER_SPRINT ~strchapterArena~ ~chpt < 0~
+	OUTER_SPRINT ~strchapterText~ ~if (chpt < 8) then%LNL%%TAB%%TAB%return Infinity_FetchString(16202 + chpt)%LNL%%TAB%else%LNL%%TAB%%TAB%return Infinity_FetchString(70004 + chpt)~
+	OUTER_SPRINT ~strcreditsStart~ ~if (startEngine:GetCampaign() == const.START_CAMPAIGN_SOD) then%LNL%%TAB%Infinity_PushMenu( 'SODCREDIT' )%LNL%else%LNL%%TAB%Infinity_PushMenu('CREDITS')%LNL%end~
+	/* new strings */
+	OUTER_SPRINT ~strBGEEscaleToClip~ ~scaleToClip~
+	OUTER_SPRINT ~strChapterZero~ ~0~
+	OUTER_SPRINT ~strChargenDiffPop~ ~'CHARGEN_DIFFICULTY'~
+	OUTER_SPRINT ~strSliderBackground~ ~sliderBackground 'SLDRBACK'%LNL%%TAB%%TAB%scaleToClip~
+END
+
+ACTION_IF GAME_IS ~eet~ BEGIN
+	OUTER_SPRINT ~strs69563~ ~lua "Infinity_FetchString(269563)"~
+	OUTER_SPRINT ~strs10962~ ~t('FC_EET_EXPORT')~
+	OUTER_SPRINT ~strMAIN_GAME_LABEL~ ~t('FC_TRILOGY_LABEL')~
+	OUTER_SPRINT ~strEXPANSION_BG2_LABELex~ ~FC_TRILOGY_LABEL~
+	OUTER_SPRINT ~strcheatAreaDisplayList~ ~if startCampaignData[selectedCampaign].cheatAreasTable %tilde%= nil then%LNL%%TAB%%TAB%%TAB%cheatAreaDisplayList = startCampaignData[selectedCampaign].cheatAreasTable~ //currentCampaign
+	OUTER_SPRINT ~strINSTALLATION_WARNING~ ~menu%LNL%{%LNL%%TAB%name 'START_INSTALLATION_WARNING'%LNL%%TAB%align center center%LNL%%TAB%modal%LNL%%TAB%label%LNL%%TAB%{%LNL%%TAB%%TAB%area 0 0 672 672%LNL%%TAB%%TAB%mosaic "FCRECNEV"%LNL%%TAB%%TAB%}%LNL%%TAB%label%LNL%%TAB%{%LNL%%TAB%%TAB%area 158 54 354 52%LNL%%TAB%%TAB%text style "title"%LNL%%TAB%%TAB%text lua "eetStrings.EET_WARNING_TITLE"%LNL%%TAB%%TAB%text color 'O'%LNL%%TAB%%TAB%}%LNL%%TAB%label%LNL%%TAB%{%LNL%%TAB%%TAB%area 126 136 422 428%LNL%%TAB%%TAB%text style "normal"%LNL%%TAB%%TAB%text lua "eetStrings.EET_WARNING_TEXT"%LNL%%TAB%%TAB%}%LNL%}~
+	OUTER_SPRINT ~strINSTALLATION_WARNINGCheck~ ~if(Infinity_GetINIValue('Program Options','EET Installation State') == 1) then%LNL%%TAB%%TAB%%TAB%Infinity_PushMenu('START_INSTALLATION_WARNING')%LNL%%TAB%%TAB%end~
+	OUTER_SPRINT ~strSTART_MONE~ ~label%LNL%%TAB%%TAB%%TAB%{%LNL%%TAB%%TAB%%TAB%%TAB%enabled "rowNumber %tilde%= selTblCampaign and rowNumber == mouseoverRow"%LNL%%TAB%%TAB%%TAB%%TAB%area 0 0 -1 -1%LNL%%TAB%%TAB%%TAB%%TAB%fill 112 111 111 40%LNL%%TAB%%TAB%%TAB%}%LNL%%TAB%%TAB%%TAB%label%LNL%%TAB%%TAB%%TAB%{%LNL%%TAB%%TAB%%TAB%%TAB%enabled "rowNumber == selTblCampaign"%LNL%%TAB%%TAB%%TAB%%TAB%area 0 0 -1 -1%LNL%%TAB%%TAB%%TAB%%TAB%fill 112 111 111 65%LNL%%TAB%%TAB%%TAB%}%LNL%%TAB%%TAB%%TAB%label%LNL%%TAB%%TAB%%TAB%{%LNL%%TAB%%TAB%%TAB%%TAB%area 25 9 32 32%LNL%%TAB%%TAB%%TAB%%TAB%bam "CMPGEET"%LNL%%TAB%%TAB%%TAB%%TAB%sequence lua "startCampaignData[rowNumber].icon"%LNL%%TAB%%TAB%%TAB%%TAB%scaleToClip%LNL%%TAB%%TAB%%TAB%}~
+	OUTER_SPRINT ~strSTART_MTWO~ ~label%LNL%%TAB%%TAB%%TAB%{%LNL%%TAB%%TAB%%TAB%%TAB%enabled "rowNumber %tilde%= selTblCampaign and rowNumber == mouseoverRow"%LNL%%TAB%%TAB%%TAB%%TAB%area 0 0 -1 -1%LNL%%TAB%%TAB%%TAB%%TAB%fill 112 111 111 40%LNL%%TAB%%TAB%%TAB%}%LNL%%TAB%%TAB%%TAB%label%LNL%%TAB%%TAB%%TAB%{%LNL%%TAB%%TAB%%TAB%%TAB%enabled "rowNumber == selTblCampaign"%LNL%%TAB%%TAB%%TAB%%TAB%area 0 0 -1 -1%LNL%%TAB%%TAB%%TAB%%TAB%fill 112 111 111 65%LNL%%TAB%%TAB%%TAB%}~
+	OUTER_SPRINT ~strBigLogoSize~ ~488 460%LNL%%TAB%%TAB%scaleToClip~
+	OUTER_SPRINT ~strBigLogoPos~ ~zzBigLogo = 'BIGLOGO'%LNL%%TAB%%TAB%zzBigLogoFrame = startCampaignData[selectedCampaign].bigLogo%LNL%%TAB%%TAB%Infinity_SetArea('zZstartBigLogo', (screenWidth - 440)/2 - (488/2) + 15, 204, 488, 460)%LNL%%TAB%%TAB%Infinity_SetArea('zZstartBigLogoOpt', (screenWidth - 440)/2 - (488/2) + 15, 204, 488, 460)%LNL%%TAB%%TAB%bttop, btheight = 120, 55%LNL%%TAB%else%LNL%%TAB%%TAB%zzBigLogoFrame = startCampaignData[selectedCampaign].bigLogo%LNL%%TAB%%TAB%zzBigLogo = 'BIGLOGO'%LNL%%TAB%%TAB%Infinity_SetArea('zZstartBigLogo', (screenWidth - 440)/2 - (276/2) + 15, 200, 276, 260)%LNL%%TAB%%TAB%Infinity_SetArea('zZstartBigLogoOpt', (screenWidth - 440)/2 - (276/2) + 15, 200, 276, 260)%LNL%%TAB%%TAB%bttop, btheight = 80, 50~
+	OUTER_SPRINT ~strSelCurCamp~ ~if cmp == nil then cmp = 1 end%LNL%%TAB%startEngine:OnCampaignButtonClick(startCampaignData[cmp].id,true)%LNL%%TAB%selectedCampaign = cmp%LNL%%TAB%selectedCampaign = Infinity_SetINIValue('Program Options','Active Campaign',selectedCampaign)%LNL%%TAB%startEngine:DismissChooseCampaignPopup()~
+	OUTER_SPRINT ~strStartTitle~ ~Infinity_SetArea('zZstartTitle', (screenWidth - 440)/2 - (605/2) + 15, 77, nil, 145)~
+	OUTER_SPRINT ~strStartTitleOpt~ ~Infinity_SetArea('zZstartTitleOpt', (screenWidth - 440)/2 - (605/2) + 15, 77, nil, 145)~
+	OUTER_SPRINT ~strEscMenu~ ~checkCampaign = Infinity_GetINIValue('Program Options','Active Campaign')%LNL%%TAB%%TAB%local chapter = Infinity_GetMaxChapterPage()%LNL%%TAB%%TAB%if (chapter == 0) and (checkCampaign %tilde%= const.START_CAMPAIGN_BG1) and (checkCampaign %tilde%= const.START_CAMPAIGN_BP1) and (checkCampaign %tilde%= const.START_CAMPAIGN_BP2) and (checkCampaign %tilde%= const.START_CAMPAIGN_TUT) then%LNL%%TAB%%TAB%%TAB%selectedCampaign = const.START_CAMPAIGN_BG1%LNL%%TAB%%TAB%elseif (chapter > 0) and (chapter < 7) and (checkCampaign %tilde%= const.START_CAMPAIGN_BG1) then%LNL%%TAB%%TAB%%TAB%selectedCampaign = const.START_CAMPAIGN_BG1%LNL%%TAB%%TAB%elseif (chapter == 7) and (checkCampaign %tilde%= const.START_CAMPAIGN_BG1) and (checkCampaign %tilde%= const.START_CAMPAIGN_SOD) then%LNL%%TAB%%TAB%%TAB%selectedCampaign = const.START_CAMPAIGN_SOD%LNL%%TAB%%TAB%elseif (chapter > 7) and (chapter < 13) and (checkCampaign %tilde%= const.START_CAMPAIGN_SOD) then%LNL%%TAB%%TAB%%TAB%selectedCampaign = const.START_CAMPAIGN_SOD%LNL%%TAB%%TAB%elseif (chapter == 13) and (checkCampaign %tilde%= const.START_CAMPAIGN_SOD) and (checkCampaign %tilde%= const.START_CAMPAIGN_SOA) then%LNL%%TAB%%TAB%%TAB%selectedCampaign = const.START_CAMPAIGN_SOA%LNL%%TAB%%TAB%elseif (chapter > 13) and (chapter < 20) and (checkCampaign %tilde%= const.START_CAMPAIGN_SOA) then%LNL%%TAB%%TAB%%TAB%selectedCampaign = const.START_CAMPAIGN_SOA%LNL%%TAB%%TAB%elseif (chapter >= 20) and (checkCampaign %tilde%= const.START_CAMPAIGN_TOB) then%LNL%%TAB%%TAB%%TAB%selectedCampaign = const.START_CAMPAIGN_TOB%LNL%%TAB%%TAB%end%LNL%%TAB%%TAB%if (checkCampaign %tilde%= selectedCampaign) then%LNL%%TAB%%TAB%%TAB%Infinity_SetINIValue('Program Options','Active Campaign',selectedCampaign)%LNL%%TAB%%TAB%end%LNL%%TAB%%TAB%zZsetOptTitleArea()~ //currentCampaign
+	OUTER_SPRINT ~strEscMenuTitle~ ~name 'zZoptionsTitle'%LNL%%TAB%%TAB%area 86 70 334 59~
+	OUTER_SPRINT ~strEscMenuTitleArea~ ~function zZsetOptTitleArea()%LNL%%TAB%local ccamp = 0%LNL%%TAB%local x, y, w, h = 86, 70, 334, 59%LNL%%TAB%if selectedCampaign %tilde%= nil then ccamp = startCampaignData[selectedCampaign].title end%LNL%%TAB%if ccamp == 7 or ccamp == 9 then x = 110; w = 285%LNL%%TAB%elseif ccamp == 8 then x = 120; w = 264%LNL%%TAB%elseif ccamp == 10 then x = 129; w = 246%LNL%%TAB%else x = 96; w = 313 end%LNL%%TAB%Infinity_SetArea('zZoptionsTitle', x, y, w, h)%LNL%end~ //currentCampaign
+	OUTER_SPRINT ~strmatchMultiplayer~ ~if gameVersion == "bgee-main" then%LNL%%TAB%%TAB%startEngine:OnCampaignButtonClick('BG1',false)%LNL%%TAB%%TAB%e:CheckGUISong()%LNL%%TAB%elseif gameVersion == "bgee-bp" then%LNL%%TAB%%TAB%startEngine:OnCampaignButtonClick('BP1',false)%LNL%%TAB%%TAB%e:CheckGUISong()%LNL%%TAB%elseif gameVersion == "bgee-sod" then%LNL%%TAB%%TAB%startEngine:OnCampaignButtonClick('SOD',false)%LNL%%TAB%%TAB%e:CheckGUISong()%LNL%%TAB%elseif gameVersion == "bg2ee-main" then%LNL%%TAB%%TAB%startEngine:OnCampaignButtonClick('SOA',false)%LNL%%TAB%%TAB%e:CheckGUISong()%LNL%%TAB%elseif gameVersion == "bg2ee-bp" then%LNL%%TAB%%TAB%startEngine:OnCampaignButtonClick('BP2',false)%LNL%%TAB%%TAB%e:CheckGUISong()%LNL%%TAB%elseif gameVersion == "bg2ee-tob" then%LNL%%TAB%%TAB%startEngine:OnCampaignButtonClick('TOB',false)%LNL%%TAB%%TAB%e:CheckGUISong()%LNL%%TAB%end~
+	OUTER_SPRINT ~strcheatBam~ ~titleeet~
+	OUTER_SPRINT ~strcheatSeq~ ~0~
+	OUTER_SPRINT ~strreplaceQuestId~ ~if questId == 231270 then questId = 74295 end%LNL%%TAB%local quest = findQuest(questId)~
+	OUTER_SPRINT ~str74295~ ~74295~
+	OUTER_SPRINT ~strcampConstTbl~ ~START_CAMPAIGN_BG1 = 1,%LNL%%TAB%START_CAMPAIGN_SOD = 2,%LNL%%TAB%START_CAMPAIGN_SOA = 3,%LNL%%TAB%START_CAMPAIGN_TOB = 4,%LNL%%TAB%START_CAMPAIGN_BP1 = 5,%LNL%%TAB%START_CAMPAIGN_BP2 = 6,%LNL%%TAB%START_CAMPAIGN_TUT = 7,~
+	OUTER_SPRINT ~strcampDataTbl~ ~{id = 'BG1', name = 'EET_CMP_TITLE_BG1', description = 'EET_CMP_TEXT_BG1', title = 0, bigLogo = 0, icon = 0, background = 2, button = 2, sidebar = 2, importEnabled = false, tutorialEnabled = false, forceParty = false, cheatAreasTable = cheatAreas},%LNL%%TAB%{id = 'SOD', name = 'EET_CMP_TITLE_SOD', description = 'EET_CMP_TEXT_SOD', title = 1, bigLogo = 1, icon = 1, background = 2, button = 2, sidebar = 2, importEnabled = false, tutorialEnabled = false, forceParty = false, cheatAreasTable = cheatAreas},%LNL%%TAB%{id = 'SOA', name = 'EET_CMP_TITLE_SOA', description = 'EET_CMP_TEXT_SOA', title = 2, bigLogo = 2, icon = 2, background = 2, button = 2, sidebar = 2, importEnabled = false, tutorialEnabled = false, forceParty = false, cheatAreasTable = cheatAreas},%LNL%%TAB%{id = 'TOB', name = 'EET_CMP_TITLE_TOB', description = 'EET_CMP_TEXT_TOB', title = 3, bigLogo = 3, icon = 3, background = 2, button = 2, sidebar = 2, importEnabled = false, tutorialEnabled = false, forceParty = false, cheatAreasTable = cheatAreas},%LNL%%TAB%{id = 'BP1', name = 'EET_CMP_TITLE_BP1', description = 'EET_CMP_TEXT_BP1', title = 4, bigLogo = 4, icon = 4, background = 2, button = 2, sidebar = 2, importEnabled = true, tutorialEnabled = false, forceParty = true, cheatAreasTable = cheatAreasArena_BP1},%LNL%%TAB%{id = 'BP2', name = 'EET_CMP_TITLE_BP2', description = 'EET_CMP_TEXT_BP2', title = 5, bigLogo = 5, icon = 5, background = 2, button = 2, sidebar = 2, importEnabled = true, tutorialEnabled = false, forceParty = true, cheatAreasTable = cheatAreasArena},%LNL%%TAB%{id = 'TUT', name = 'EET_CMP_TITLE_TUT', description = 'EET_CMP_TEXT_TUT', title = 6, bigLogo = 6, icon = 6, background = 2, button = 2, sidebar = 2, importEnabled = false, tutorialEnabled = false, forceParty = false, cheatAreasTable = cheatAreasTutorial},~
+	OUTER_SPRINT ~strcreateBioText~ ~generateBioText()%LNL%%TAB%%TAB%if bioRace == '' then%LNL%%TAB%%TAB%%TAB%createBioEdit = bioClass%LNL%%TAB%%TAB%else%LNL%%TAB%%TAB%%TAB%createBioEdit = bioClass .. '\n\n' .. bioRace%LNL%%TAB%%TAB%end~
+	OUTER_SPRINT ~strchapterArena~ ~(selectedCampaign == const.START_CAMPAIGN_BP1) or (selectedCampaign == const.START_CAMPAIGN_BP2)~ //currentCampaign
+	OUTER_SPRINT ~strchapterText~ ~if (chpt == 0) then%LNL%%TAB%%TAB%return Infinity_FetchString(216202)%LNL%%TAB%elseif (chpt < 23) then%LNL%%TAB%%TAB%return eetStrings.EET_CHAPTER .. chpt%LNL%%TAB%else%LNL%%TAB%%TAB%return Infinity_FetchString(-1)~
+	/* new strings */
+	//OUTER_SPRINT ~strBGEEscaleToClip~ ~scaleToClip~
+	OUTER_SPRINT ~strChapterZero~ ~0~
+END
+
+
+
+
+
+
+
+
+
+
+

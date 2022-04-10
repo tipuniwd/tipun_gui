@@ -1,0 +1,475 @@
+ACTION_CLEAR_ARRAY RACE_TXT
+ACTION_CLEAR_ARRAY CLAS_TXT
+ACTION_DEFINE_ASSOCIATIVE_ARRAY RACE_TXT BEGIN ~RACETEXT~ => ~~ END
+ACTION_DEFINE_ASSOCIATIVE_ARRAY CLAS_TXT BEGIN ~CLASTEXT~ => ~~ END
+ACTION_IF FILE_EXISTS_IN_GAME ~CAMPAIGN.2da~ BEGIN
+	COPY_EXISTING ~CAMPAIGN.2DA~ ~override~
+		COUNT_2DA_ROWS 32 rows
+		FOR ( i = 0 ; i < rows ; ++i ) BEGIN
+			READ_2DA_ENTRY i 30 32 file
+			TO_UPPER file
+			PATCH_IF !VARIABLE_IS_SET $CLAS_TXT(~%file%~) BEGIN
+				DEFINE_ASSOCIATIVE_ARRAY CLAS_TXT BEGIN ~%file%~ => ~~ END
+			END
+			READ_2DA_ENTRY i 31 32 file
+			TO_UPPER file
+			PATCH_IF !VARIABLE_IS_SET $RACE_TXT(~%file%~) BEGIN
+				DEFINE_ASSOCIATIVE_ARRAY RACE_TXT BEGIN ~%file%~ => ~~ END
+			END
+		END
+		BUT_ONLY_IF_IT_CHANGES
+END
+
+ACTION_IF GAME_IS ~bg2ee eet~ BEGIN
+	OUTER_SET stra = RESOLVE_STR_REF(@9000)
+	OUTER_SET strb = RESOLVE_STR_REF(@9001)
+	ACTION_PHP_EACH RACE_TXT AS file => ~~ BEGIN
+		ACTION_IF FILE_EXISTS_IN_GAME ~%file%.2da~ BEGIN
+			APPEND ~%file%.2da~ ~BEAR 103 %stra% -1 %strb% -1~ UNLESS ~BEAR~
+			COPY_EXISTING ~%file%.2da~ ~override~ PRETTY_PRINT_2DA
+		END
+	END
+END
+
+/* xplevel */
+OUTER_SPRINT ~xplevel_2da~ ~~
+COPY_EXISTING ~xplevel.2da~ ~override~
+	COUNT_2DA_COLS cols
+	COUNT_2DA_ROWS 5 rws
+	SET rws = rws - 1
+	COUNT_2DA_ROWS cols rows
+	WHILE rows < rws BEGIN
+		cols = cols - 1
+		COUNT_2DA_ROWS cols rows
+	END
+	SET maxlvl = cols - 1
+	SPRINT ~tablename~ ~~
+	FOR ( i = 0 ; i < rows ; ++i ) BEGIN
+		SET done = 0
+		FOR ( j = 0 ; j < cols ; ++j ) BEGIN
+			READ_2DA_ENTRY i j cols value
+			PATCH_IF ( j = 0 ) BEGIN
+				PATCH_MATCH ~%value%~ WITH
+					~MAGE~     BEGIN SPRINT ~tablename~ ~mageXPList~     SET done = 1 END
+					~FIGHTER~  BEGIN SPRINT ~tablename~ ~fighterXPList~  SET done = 1 END
+					~PALADIN~  BEGIN SPRINT ~tablename~ ~paladinXPList~  SET done = 1 END
+					~RANGER~   BEGIN SPRINT ~tablename~ ~rangerXPList~   SET done = 1 END
+					~CLERIC~   BEGIN SPRINT ~tablename~ ~clericXPList~   SET done = 1 END
+					~DRUID~    BEGIN SPRINT ~tablename~ ~druidXPList~    SET done = 1 END
+					~THIEF~    BEGIN SPRINT ~tablename~ ~thiefXPList~    SET done = 1 END
+					~BARD~     BEGIN SPRINT ~tablename~ ~bardXPList~     SET done = 1 END
+					~SORCERER~ BEGIN SPRINT ~tablename~ ~sorcererXPList~ SET done = 1 END
+					~MONK~     BEGIN SPRINT ~tablename~ ~monkXPList~     SET done = 1 END
+					~SHAMAN~   BEGIN SPRINT ~tablename~ ~shamanXPList~   SET done = 1 END
+				DEFAULT
+					SPRINT ~tablename~ ~~
+				END
+				PATCH_IF ( i = 0 ) BEGIN SPRINT nl ~~ END ELSE BEGIN SPRINT nl ~%LNL%%LNL%~ END
+				SPRINT ~xplevel_2da~ ~%xplevel_2da%%nl%%tablename% = {}~
+			END ELSE BEGIN
+				PATCH_IF ( done = 1 ) BEGIN
+					SPRINT ~xplevel_2da~ ~%xplevel_2da%%LNL%table.insert(%tablename%, {%j%, %value%, %maxlvl%})~
+				END
+			END
+		END
+	END
+	BUT_ONLY_IF_IT_CHANGES
+
+
+ACTION_CLEAR_ARRAY CLASTEXT_ARRAY
+ACTION_CLEAR_ARRAY CLASTEXT_ARRAY_CHECK
+
+/* CLASTEXT */
+<<<<<<<< ffff.2da
+2DA                  V1.0
+-1
+	CLASSID	KITID	LOWER	DESCSTR	MIXED	BIOGRAPHY	FALLEN
+>>>>>>>>
+COPY ~ffff.2da~ ~%MOD_FOLDER%/CLASTEXT.2da~
+OUTER_SPRINT ~clastext_2da~ ~clastxtList = {}~
+ACTION_PHP_EACH CLAS_TXT AS file => _ BEGIN
+	ACTION_IF FILE_EXISTS_IN_GAME ~%file%.2da~ BEGIN
+		COPY_EXISTING ~%file%.2da~ ~override~
+			COUNT_2DA_ROWS 8 rows
+			FOR ( i = 0 ; i < rows ; ++i ) BEGIN
+				READ_2DA_ENTRY i 0 8 class
+				TO_UPPER class
+				PATCH_IF ( ~%class%~ STR_CMP ~CLASSID~ ) BEGIN
+					READ_2DA_ENTRY i 1 8 classid
+					READ_2DA_ENTRY i 2 8 kitid
+					READ_2DA_ENTRY i 3 8 lower
+					READ_2DA_ENTRY i 4 8 desc
+					READ_2DA_ENTRY i 5 8 mixed
+					READ_2DA_ENTRY i 7 8 fallen
+					PATCH_IF NOT VARIABLE_IS_SET $CLASTEXT_ARRAY_CHECK(~%class%~) BEGIN
+						DEFINE_ASSOCIATIVE_ARRAY CLASTEXT_ARRAY_CHECK BEGIN ~%class%~ => _ END
+						DEFINE_ASSOCIATIVE_ARRAY CLASTEXT_ARRAY BEGIN
+							~%mixed%~, ~%lower%~, ~%desc%~, ~%fallen%~, ~%classid%~, ~%kitid%~ => ~%class%~
+						END
+					END
+					INNER_ACTION BEGIN
+						COPY ~%MOD_FOLDER%/CLASTEXT.2da~  ~%MOD_FOLDER%/CLASTEXT.2da~
+							COUNT_2DA_ROWS 8 rw
+							INSERT_2DA_ROW rw 8 ~%class%	%classid%	%kitid%	%lower%	%desc%	%mixed%	-1	%fallen%~
+							PRETTY_PRINT_2DA
+					END
+				END
+			END
+			BUT_ONLY_IF_IT_CHANGES
+	END
+END
+ACTION_PHP_EACH CLASTEXT_ARRAY AS data => value BEGIN
+	OUTER_SPRINT ~clastext_2da~ ~%clastext_2da%%LNL%table.insert(clastxtList, {%data%, %data_1%, %data_2%, %data_3%, %data_4%, %data_5%, "%value%"})~
+END
+ACTION_CLEAR_ARRAY CLASTEXT_ARRAY
+ACTION_CLEAR_ARRAY CLASTEXT_ARRAY_CHECK
+
+/* RACETEXT */
+<<<<<<<< ffff.2da
+2DA                  V1.0
+-1
+	ID	NAME	DESCSTR	UPPERCASE	BIOGRAPHY
+>>>>>>>>
+COPY ~ffff.2da~ ~%MOD_FOLDER%/RACETEXT.2da~
+OUTER_SPRINT ~racetext_2da~ ~racetextList = {}~
+ACTION_PHP_EACH RACE_TXT AS file => dummy BEGIN
+	ACTION_IF FILE_EXISTS_IN_GAME ~%file%.2da~ BEGIN
+		COPY_EXISTING ~%file%.2da~ ~override~
+			PRETTY_PRINT_2DA
+			READ_2DA_ENTRIES_NOW racetext_tbl 6
+			FOR (i=0; i < racetext_tbl; ++i) BEGIN
+				READ_2DA_ENTRY_FORMER racetext_tbl i 0 race
+				READ_2DA_ENTRY_FORMER racetext_tbl i 1 raceid
+				READ_2DA_ENTRY_FORMER racetext_tbl i 2 racename
+				READ_2DA_ENTRY_FORMER racetext_tbl i 3 racedesc
+				READ_2DA_ENTRY_FORMER racetext_tbl i 4 upper
+				READ_2DA_ENTRY_FORMER racetext_tbl i 5 bio
+				PATCH_IF ( NOT VARIABLE_IS_SET $CLASTEXT_ARRAY_CHECK(~RACE%racename%~) OR
+				           NOT VARIABLE_IS_SET $CLASTEXT_ARRAY_CHECK(~RACE%upper%~) ) BEGIN
+					PATCH_IF NOT VARIABLE_IS_SET $CLASTEXT_ARRAY_CHECK(~RACE%racename%~) BEGIN
+						DEFINE_ASSOCIATIVE_ARRAY CLASTEXT_ARRAY_CHECK BEGIN ~RACE%racename%~ => _ END
+					END
+					PATCH_IF NOT VARIABLE_IS_SET $CLASTEXT_ARRAY_CHECK(~RACE%upper%~) BEGIN
+						DEFINE_ASSOCIATIVE_ARRAY CLASTEXT_ARRAY_CHECK BEGIN ~RACE%upper%~ => _ END
+					END
+					DEFINE_ASSOCIATIVE_ARRAY CLASTEXT_ARRAY BEGIN
+						~%raceid%~, ~%racename%~, ~%racedesc%~, ~%upper%~, ~%bio%~ => ~%race%~
+					END
+				END
+				INNER_ACTION BEGIN
+					COPY ~%MOD_FOLDER%/RACETEXT.2da~ ~%MOD_FOLDER%/RACETEXT.2da~
+						COUNT_2DA_ROWS 6 rw
+						INSERT_2DA_ROW rw 6 ~%race%	%raceid%	%racename%	%racedesc%	%upper%	%bio%~
+						PRETTY_PRINT_2DA
+				END
+			END
+			PRETTY_PRINT_2DA
+		BUT_ONLY
+	END
+END
+ACTION_PHP_EACH CLASTEXT_ARRAY AS data => value BEGIN
+	OUTER_SPRINT ~racetext_2da~ ~%racetext_2da%%LNL%table.insert(racetextList, {%data%, %data_1%, %data_2%, %data_3%, %data_4%, "%value%"})~
+END
+ACTION_CLEAR_ARRAY CLASTEXT_ARRAY
+ACTION_CLEAR_ARRAY CLASTEXT_ARRAY_CHECK
+
+/* months */
+OUTER_SPRINT ~months_2da~ ~zzMonths = {}~
+COPY_EXISTING ~months.2da~ ~override~
+	COUNT_2DA_ROWS 3 rows
+	FOR ( i = 0 ; i < rows ; ++i ) BEGIN
+		SET num = i + 1
+		READ_2DA_ENTRY i 1 3 days
+		READ_2DA_ENTRY i 2 3 month
+		SPRINT ~months_2da~ ~%months_2da%%LNL%table.insert(zzMonths, {%num%, %days%, %month%})~
+	END
+	BUT_ONLY_IF_IT_CHANGES
+
+/* epilogue portrait and cre data */
+COPY ~%MOD_FOLDER%/CLASTEXT.2da~ ~%MOD_FOLDER%/CLASTEXT.2da~
+	REPLACE_TEXTUALLY ~2147483648~ ~9999998~
+	REPLACE_TEXTUALLY ~1073741824~ ~9999994~
+	BUT_ONLY_IF_IT_CHANGES
+
+LAM JOINABLE_NPC_ARRAYS
+
+ACTION_CLEAR_ARRAY EPILOGUE_ARRAY
+ACTION_CLEAR_ARRAY NPC_DATA_ARRAY
+
+COPY_EXISTING ~HATERACE.2DA~ ~override~
+	READ_2DA_ENTRIES_NOW hated_race_tbl 4
+	BUT_ONLY_IF_IT_CHANGES
+
+COPY_EXISTING ~enginest.2DA~ ~override~
+	READ_2DA_ENTRIES_NOW enginest_tbl 2
+	BUT_ONLY_IF_IT_CHANGES
+
+COPY ~%MOD_FOLDER%/CLASTEXT.2da~ ~%MOD_FOLDER%/CLASTEXT.2da~
+	READ_2DA_ENTRIES_NOW class_tbl 6
+	BUT_ONLY_IF_IT_CHANGES
+
+COPY ~%MOD_FOLDER%/RACETEXT.2da~ ~%MOD_FOLDER%/RACETEXT.2da~
+	READ_2DA_ENTRIES_NOW race_tbl 6
+	BUT_ONLY_IF_IT_CHANGES
+
+ACTION_PHP_EACH JOINABLE_NPC_ARRAY AS file => dv BEGIN
+	ACTION_IF FILE_EXISTS_IN_GAME ~%file%.cre~ BEGIN
+		COPY_EXISTING ~%file%.cre~ ~override~
+			READ_LONG 0x1cc bio
+			READ_ASCII 0x3c lport (8) NULL
+			TO_UPPER lport
+			PATCH_IF ( ~%lport%~ STR_CMP ~~ ) AND ( ~%lport%~ STR_CMP ~NONE~ ) AND ( bio >= 0 ) BEGIN
+				READ_LONG 0x08 name
+				SET len = STRING_LENGTH ~%lport%~ - 1
+				SNPRINT len port ~%lport%~
+				PATCH_IF ( name = 10896 ) AND ( ~%port%~ STR_EQ ~BRANWE~ ) BEGIN SET name = 9499 END
+				PATCH_IF ( name = 210896 ) AND ( ~%port%~ STR_EQ ~BRANWE~ ) BEGIN SET name = 209499 END
+				PATCH_IF NOT VARIABLE_IS_SET $EPILOGUE_ARRAY( ~%port%~ ) BEGIN
+					DEFINE_ASSOCIATIVE_ARRAY EPILOGUE_ARRAY BEGIN ~%port%~ => ~%name%~ END
+				END
+				READ_LONG 0x1cc bio
+				READ_BYTE 0x238 stra
+				READ_BYTE 0x239 strb
+				READ_BYTE 0x23a int
+				READ_BYTE 0x23b wis
+				READ_BYTE 0x23c dex
+				READ_BYTE 0x23d con
+				READ_BYTE 0x23e chr
+				READ_BYTE 0x241 rac_enemy
+				READ_SHORT 0x244 kitu
+				READ_SHORT 0x246 kit
+				PATCH_IF kitu = 16384 BEGIN SET kit = 9999994 END
+				PATCH_IF kitu = 32768 BEGIN SET kit = 9999998 END
+				READ_BYTE 0x272 race
+				PATCH_IF ( ~%port%~ STR_EQ ~BRANWE~ ) BEGIN SET race = 1 END
+				READ_BYTE 0x273 class
+				READ_BYTE 0x275 gender
+				READ_BYTE 0x27b align
+				READ_ASCII 0x280 dv (32) NULL
+				INNER_ACTION BEGIN
+					SILENT
+						OUTER_SET hated_race = 0
+						OUTER_SET done = 0
+						OUTER_INNER_PATCH hated_race_tbl BEGIN
+							FOR ( i = 0 ; i < hated_race_tbl ; ++i ) BEGIN
+								READ_2DA_ENTRY_FORMER hated_race_tbl i 2 rac
+								PATCH_IF rac = rac_enemy AND done = 0 BEGIN
+									READ_2DA_ENTRY_FORMER hated_race_tbl i 1 hated_race
+									SET done = 1
+								END
+							END
+						END
+						OUTER_SET race_idx = 0
+						OUTER_SET done = 0
+						OUTER_INNER_PATCH race_tbl BEGIN
+							FOR ( i = 0 ; i < race_tbl ; ++i ) BEGIN
+								READ_2DA_ENTRY_FORMER race_tbl i 1 rac
+								PATCH_IF rac = race AND done = 0 BEGIN
+									READ_2DA_ENTRY_FORMER race_tbl i 2 race_idx
+									SET done = 1
+								END
+							END
+						END
+						OUTER_SET class_idx = 0
+						OUTER_SET kit_idx = 0
+						OUTER_SET done = 0
+						OUTER_SET donekit = 0
+						OUTER_SPRINT kit_name ~~
+						OUTER_SPRINT class_name ~~
+						ACTION_IF kit != 0 AND kit != 64 AND kit != 128 AND kit != 256 AND kit != 512 AND kit != 1024 AND kit != 2048 AND kit != 4096 AND kit != 8192 AND kit != 9999994 AND kit != 9999998 AND kit != 16384 BEGIN
+							OUTER_SET kit = kit - 16384
+						END
+						OUTER_INNER_PATCH class_tbl BEGIN
+							FOR ( i = 0 ; i < class_tbl ; ++i ) BEGIN
+								READ_2DA_ENTRY_FORMER class_tbl i 1 rac
+								READ_2DA_ENTRY_FORMER class_tbl i 2 kt
+								PATCH_IF IS_AN_INT kt AND rac = class AND kt = 16384 AND done = 0 BEGIN
+									READ_2DA_ENTRY_FORMER class_tbl i 3 class_idx
+									READ_2DA_ENTRY_FORMER class_tbl i 0 class_name
+									SET done = 1
+								END
+								PATCH_IF kit != 0 AND kit != 16384 BEGIN
+									PATCH_IF IS_AN_INT kt AND kt = kit BEGIN
+										READ_2DA_ENTRY_FORMER class_tbl i 3 ktu
+										PATCH_IF ~%ktu%~ != "-1" AND donekit = 0 BEGIN
+											READ_2DA_ENTRY_FORMER class_tbl i 3 kit_idx
+											READ_2DA_ENTRY_FORMER class_tbl i 0 kit_name
+											SET donekit = 1
+										END
+									END
+								END
+							END
+						END
+						OUTER_SET gnd_male = 0
+						OUTER_SET gnd_faml = 0
+						OUTER_SET law_good = 0
+						OUTER_SET law_neut = 0
+						OUTER_SET law_evil = 0
+						OUTER_SET neu_good = 0
+						OUTER_SET neu_neut = 0
+						OUTER_SET neu_evil = 0
+						OUTER_SET cha_good = 0
+						OUTER_SET cha_neut = 0
+						OUTER_SET cha_evil = 0
+						OUTER_INNER_PATCH enginest_tbl BEGIN
+							FOR ( i = 0 ; i < enginest_tbl ; ++i ) BEGIN
+								READ_2DA_ENTRY_FORMER enginest_tbl i 0 rw
+								PATCH_IF ( ~%rw%~ STR_EQ ~STRREF_GUI_LOWER_MALE~ ) BEGIN
+									READ_2DA_ENTRY_FORMER enginest_tbl i 1 gnd_male
+								END
+								PATCH_IF ( ~%rw%~ STR_EQ ~STRREF_GUI_LOWER_FEMALE~ ) BEGIN
+									READ_2DA_ENTRY_FORMER enginest_tbl i 1 gnd_faml
+								END
+								PATCH_IF ( ~%rw%~ STR_EQ ~STRREF_GUI_LOWER_LAWFUL_GOOD~ ) BEGIN
+									READ_2DA_ENTRY_FORMER enginest_tbl i 1 law_good
+								END
+								PATCH_IF ( ~%rw%~ STR_EQ ~STRREF_GUI_LOWER_LAWFUL_NEUTRAL~ ) BEGIN
+									READ_2DA_ENTRY_FORMER enginest_tbl i 1 law_neut
+								END
+								PATCH_IF ( ~%rw%~ STR_EQ ~STRREF_GUI_LOWER_LAWFUL_EVIL~ ) BEGIN
+									READ_2DA_ENTRY_FORMER enginest_tbl i 1 law_evil
+								END
+								PATCH_IF ( ~%rw%~ STR_EQ ~STRREF_GUI_LOWER_NEUTRAL_GOOD~ ) BEGIN
+									READ_2DA_ENTRY_FORMER enginest_tbl i 1 neu_good
+								END
+								PATCH_IF ( ~%rw%~ STR_EQ ~STRREF_GUI_LOWER_TRUE_NEUTRAL~ ) BEGIN
+									READ_2DA_ENTRY_FORMER enginest_tbl i 1 neu_neut
+								END
+								PATCH_IF ( ~%rw%~ STR_EQ ~STRREF_GUI_LOWER_NEUTRAL_EVIL~ ) BEGIN
+									READ_2DA_ENTRY_FORMER enginest_tbl i 1 neu_evil
+								END
+								PATCH_IF ( ~%rw%~ STR_EQ ~STRREF_GUI_LOWER_CHAOTIC_GOOD~ ) BEGIN
+									READ_2DA_ENTRY_FORMER enginest_tbl i 1 cha_good
+								END
+								PATCH_IF ( ~%rw%~ STR_EQ ~STRREF_GUI_LOWER_CHAOTIC_NEUTRAL~ ) BEGIN
+									READ_2DA_ENTRY_FORMER enginest_tbl i 1 cha_neut
+								END
+								PATCH_IF ( ~%rw%~ STR_EQ ~STRREF_GUI_LOWER_CHAOTIC_EVIL~ ) BEGIN
+									READ_2DA_ENTRY_FORMER enginest_tbl i 1 cha_evil
+								END
+							END
+						END
+						ACTION_MATCH gender WITH
+							1 BEGIN OUTER_SET gender_idx = gnd_male END
+							2 BEGIN OUTER_SET gender_idx = gnd_faml END
+						DEFAULT
+							OUTER_SET gender_idx = 0
+						END
+						ACTION_MATCH align WITH
+							17 BEGIN OUTER_SET align_idx = law_good END
+							18 BEGIN OUTER_SET align_idx = law_neut END
+							19 BEGIN OUTER_SET align_idx = law_evil END
+							33 BEGIN OUTER_SET align_idx = neu_good END
+							34 BEGIN OUTER_SET align_idx = neu_neut END
+							35 BEGIN OUTER_SET align_idx = neu_evil END
+							49 BEGIN OUTER_SET align_idx = cha_good END
+							50 BEGIN OUTER_SET align_idx = cha_neut END
+							51 BEGIN OUTER_SET align_idx = cha_evil END
+						DEFAULT
+							OUTER_SET align_idx = 0
+						END
+					VERBOSE
+				END
+				SPRINT strav ~{ name=%name%, bio=%bio%, racialEnemy=%hated_race%, kit=%kit_idx%, kitName='%kit_name%', race=%race_idx%, class=%class_idx%, classId=%class%, className='%class_name%', gender=%gender_idx%, alignment=%align_idx%, portrait='%lport%', STR=%stra%, STTREXTRA=%strb%, INT=%int%, WIS=%wis%, DEX=%dex%, CON=%con%, CHR=%chr%, scriptName='%dv%' }~
+				PATCH_IF !VARIABLE_IS_SET $NPC_DATA_ARRAY(~%port%~) BEGIN
+					DEFINE_ASSOCIATIVE_ARRAY NPC_DATA_ARRAY BEGIN ~%port%~ => ~%strav%~ END
+				END
+			END
+			BUT_ONLY_IF_IT_CHANGES
+	END
+END
+
+OUTER_SPRINT ~epilogue_text~ ~~
+ACTION_PHP_EACH EPILOGUE_ARRAY AS port => name BEGIN
+	OUTER_SPRINT ~epilogue_text~ ~%epilogue_text%%LNL%%TAB%['%port%'] = %name%,~
+END
+
+OUTER_SPRINT ~npc_data_text~ ~~
+ACTION_PHP_EACH NPC_DATA_ARRAY AS port => name BEGIN
+	OUTER_SPRINT ~npc_data_text~ ~%npc_data_text%%LNL%%TAB%%name%,~
+END
+
+ACTION_CLEAR_ARRAY EPILOGUE_ARRAY
+ACTION_CLEAR_ARRAY NPC_DATA_ARRAY
+
+/* items */
+OUTER_SPRINT ~text_lua_items~ ~~
+COPY_EXISTING_REGEXP GLOB ~^.*\.itm~ ~override~
+	READ_BYTE 0x18 flags
+	SET drop = 0
+	LPF GET_BIT INT_VAR number = flags nth_bit = 2 RET drop = bit_value END
+	LPF GET_BIT INT_VAR number = flags nth_bit = 0 RET critical_bit = bit_value END
+	READ_SHORT 0x1c item_type
+	READ_ASCII 0x3a icon (8)
+	SPRINT type "None"
+	PATCH_IF (drop) AND (~%%~ STR_CMP ~NONE~) AND (~%icon%~ STR_CMP ~~) BEGIN
+		PATCH_MATCH item_type WITH
+			1  BEGIN SPRINT type ~Amulet~ END
+			2  BEGIN SPRINT type ~Armor~ END
+			3  BEGIN SPRINT type ~Belt~ END
+			4  BEGIN SPRINT type ~Boot~ END
+			5  BEGIN SPRINT type ~Arrow~ END
+			6  BEGIN SPRINT type ~Bracers~ END
+			7  BEGIN SPRINT type ~Helmet~ END
+			8  BEGIN SPRINT type ~Key~ END
+			9  BEGIN SPRINT type ~Potion~ END
+			10 BEGIN SPRINT type ~Ring~ END
+			11 BEGIN SPRINT type ~Scroll~ END
+			12 BEGIN SPRINT type ~Shield~ END
+			14 BEGIN SPRINT type ~Bullet~ END
+			15 BEGIN SPRINT type ~Bow~ END
+			16 BEGIN SPRINT type ~Dagger~ END
+			17 BEGIN SPRINT type ~Mace~ END
+			18 BEGIN SPRINT type ~Sling~ END
+			19 BEGIN SPRINT type ~SmallSword~ END
+			20 BEGIN SPRINT type ~LargeSword~ END
+			21 BEGIN SPRINT type ~Hammer~ END
+			22 BEGIN SPRINT type ~Morningstar~ END
+			23 BEGIN SPRINT type ~Flail~ END
+			24 BEGIN SPRINT type ~Dart~ END
+			25 BEGIN SPRINT type ~Axe~ END
+			26 BEGIN SPRINT type ~Staff~ END
+			27 BEGIN SPRINT type ~Crossbow~ END
+			29 BEGIN SPRINT type ~Spear~ END
+			30 BEGIN SPRINT type ~Halberd~ END
+			31 BEGIN SPRINT type ~Bolt~ END
+			32 BEGIN SPRINT type ~Cloack~ END
+			34 BEGIN SPRINT type ~Gem~ END
+			35 BEGIN SPRINT type ~Wand~ END
+			36 BEGIN SPRINT type ~Bag~ END
+			37 BEGIN SPRINT type ~Book~ END
+		DEFAULT
+			SPRINT type ~Misc~
+		END
+		READ_LONG  0x0034 price
+		READ_LONG  0x004c weight
+		READ_LONG  0x0060 enchantment
+		READ_SHORT 0x0042 lore
+		SPRINT ~text_lua_items~ ~%text_lua_items%%LNL%%TAB%['%SOURCE_RES%'] = {['itemtype'] = '%type%', ['critical'] = %critical_bit%, ['price'] = %price%, ['weight'] = %weight%, ['enchantment'] = %enchantment%, ['lore'] = %lore%},~
+	END
+	BUT_ONLY_IF_IT_CHANGES
+
+
+
+
+
+
+
+COPY_EXISTING ~m_zZatbl.lua~ ~override~
+	REPLACE_TEXTUALLY ~all_class_xp_tables~  ~%xplevel_2da%~
+	REPLACE_TEXTUALLY ~all_class_data_table~ ~%clastext_2da%~
+	REPLACE_TEXTUALLY ~all_class_race_table~ ~%racetext_2da%~
+	REPLACE_TEXTUALLY ~all_month_in_year_table~ ~%months_2da%~
+	REPLACE_TEXTUALLY ~creature_epilogue_portraits~ ~%epilogue_text%~
+	REPLACE_TEXTUALLY ~npc_list_all_listlist~ ~%npc_data_text%~
+	REPLACE_TEXTUALLY ~item_list_table~ ~%text_lua_items%~
+
+
+
+
+
+
+
+
+
+

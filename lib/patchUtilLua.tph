@@ -1,0 +1,196 @@
+OUTER_SPRINT ~tilde~ "~"
+
+OUTER_SPRINT ~createEntry~ EVAL ~function createEntry(questId, objectiveId, entryId, previousObjectives, subGroup)
+	%strreplaceQuestId%
+	if(not quest) then
+		Infinity_Log("Failed to create entry: " .. entryId .. "for quest: " .. questId)
+		return
+	end
+
+	local entry = {}
+	local objective = {}
+	entry.text = ""
+	entry.previousObjectives = {}
+	entry.id = entryId
+
+	entry.subGroup = subGroup
+	if(subGroup) then
+		if(not subGroups[subGroup]) then subGroups[subGroup] = {} end
+		table.insert(subGroups[subGroup],entry)
+	end
+	
+	local str = Infinity_FetchString(entryId)
+	local strTemp = ''
+	local zz = 1
+	local u = 0
+	local y = 0
+	local a = 0
+	local zzUps = {}
+	if string.find(str, "\n\n", zZstrLen + 1, true) %tilde%= nil then y = 1 end
+	while zz %tilde%= nil do
+		zz = string.find(str, "\n", 1, true)
+		if zz %tilde%= nil then
+			u = u + 1
+			strTemp = string.sub(str, 1, zz - 1)
+			str = string.sub(str, zz + 1)
+			table.insert(zzUps, {u, strTemp})
+		else
+			u = u + 1
+			table.insert(zzUps, {u, str})
+		end
+	end
+	
+	local txt = ''
+	local txta = ''
+	local noObjective = 0
+	local added = 0
+	local zuba = 0
+	if (u == 1) then
+		objective.text = zzUps[1][2]
+		entry.text = objective.text
+		objective.text = Infinity_FetchString(quest.text)
+	else
+		for k,v in pairs(zzUps) do
+			a = v[1]
+			txta = v[2]
+			if a == 1 then
+				if string.len(txta) <= zZstrLen then
+					objective.text = txta
+					noObjective = 1
+				else
+					objective.text = Infinity_FetchString(quest.text)
+					entry.text = entry.text .. txta
+				end
+			else
+				txt = ''
+				if y == 0 then
+					if txta %tilde%= '' and zuba == 0 then
+						txt = "\n\n"
+					end
+				else
+					txt = '\n'
+				end
+				if noObjective == 1 then
+					txt = ''
+					added = 1
+					if txta %tilde%= '' then added = 0 end
+				end
+				if added == 0 then
+					entry.text = entry.text .. txt .. txta
+				end
+				added = 0
+				zuba = 0
+				if noObjective == 1 and txta == '' then
+					zuba = 1
+				end
+				noObjective = 0
+			end
+		end
+	end
+	objective.entries = {entry}
+	table.insert(quest.objectives,objective)
+end~
+
+ACTION_IF GAME_IS ~eet~ BEGIN
+	OUTER_SPRINT ~fpsEet~ ~fps = Infinity_GetINIValue('Program Options','Maximum Frame Rate', 30)
+	textflashes[textflashidx] = {title, line1, line2, displayTime * (fps / 30), str}~
+END ELSE BEGIN
+	OUTER_SPRINT ~fpsEet~ ~textflashes[textflashidx] = {title, line1, line2, displayTime, str}~
+END
+
+OUTER_SPRINT ~showTextFlash~ EVAL ~function showTextFlash(title, str, displayTime)
+	if #textflashes == 0 then
+		textflashidx = 1
+	end
+	zZsetLastQuest(str)
+	local fullStr = Infinity_FetchString(str)
+	local splitLines = string.gmatch(fullStr, "[^\r\n]+")
+	local line1 = splitLines()
+	local line2 = splitLines()
+	if(line2 == nil) then return end
+	%fpsEet%
+	textflashidx = textflashidx + 1
+end~
+
+OUTER_SPRINT ~autopickMageSpells~ ~function autopickMageSpells()
+	if zZchooseMemMage == 1 then
+		-- choose all our specialist spells
+		for k,v in pairs(chargen.choose_spell) do
+			spell = mageSpells[chargen.currentSpellLevelChoice][v.key]
+			if spell.specialist and chargen.extraSpells > 0 then
+				createCharScreen:OnLearnMageSpellButtonClick(k)
+			end
+		end
+		-- choose any remaining auto pick spells
+		for k, v in pairs(chargen.choose_spell) do
+			spell = mageSpells[chargen.currentSpellLevelChoice][v.key]
+			if not v.enabled and spell.autopick and chargen.extraSpells > 0 then
+				createCharScreen:OnLearnMageSpellButtonClick(k)
+			end
+		end
+	end
+end~
+
+
+
+COPY_EXISTING ~util.lua~ ~override~
+	SET offsstart = INDEX_BUFFER(~function[ %TAB%]createEntry~)
+	PATCH_IF ( offsstart >= 0 ) BEGIN
+		SET offsend = INDEX_BUFFER(~^end~ offsstart) + 3
+		DELETE_BYTES offsstart offsend - offsstart
+		SET codeLen = STRING_LENGTH ~%createEntry%~
+		INSERT_BYTES offsstart codeLen
+		WRITE_ASCIIE offsstart ~%createEntry%~
+	END
+	SET offsstart = INDEX_BUFFER(~function[ %TAB%]showTextFlash~)
+	PATCH_IF ( offsstart >= 0 ) BEGIN
+		SET offsend = INDEX_BUFFER(~^end~ offsstart) + 3
+		DELETE_BYTES offsstart offsend - offsstart
+		SET codeLen = STRING_LENGTH ~%showTextFlash%~
+		INSERT_BYTES offsstart codeLen
+		WRITE_ASCIIE offsstart ~%showTextFlash%~
+	END
+	SET offsstart = INDEX_BUFFER(~function[ %TAB%]autopickMageSpells~)
+	PATCH_IF ( offsstart >= 0 ) BEGIN
+		SET offsend = INDEX_BUFFER(~^end~ offsstart) + 3
+		DELETE_BYTES offsstart offsend - offsstart
+		SET codeLen = STRING_LENGTH ~%autopickMageSpells%~
+		INSERT_BYTES offsstart codeLen
+		WRITE_ASCIIE offsstart ~%autopickMageSpells%~
+	END
+	BUT_ONLY_IF_IT_CHANGES
+
+
+COPY_EXISTING ~m_k#eet.lua~ ~override~
+	REPLACE_TEXTUALLY ~showTextFlash~ ~showTextFlashOld~
+	IF_EXISTS
+COPY_EXISTING ~m_k#tbl.lua~ ~override~
+	REPLACE_TEXTUALLY ~startCampaignData~ ~startCampaignDataOld~
+	REPLACE_TEXTUALLY ~eetStrings~ ~eetStringsOld~
+	IF_EXISTS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
